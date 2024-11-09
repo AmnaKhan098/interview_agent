@@ -84,10 +84,16 @@ class InterviewAssistant:
 
     def transcribe_audio(self, audio_data):
         """Convert audio data into text using Whisper."""
-        audio = AudioSegment.from_wav(audio_data)
-        audio.export("temp_audio.wav", format="wav")
-        result = self.whisper_model.transcribe("temp_audio.wav")
-        return result["text"]
+        try:
+            # Load the audio from the uploaded file and convert to wav format if necessary
+            audio = AudioSegment.from_file(audio_data, format="wav")  # Will work for .mp3, .ogg, etc. too
+            audio.export("temp_audio.wav", format="wav")
+            
+            # Use Whisper to transcribe the audio
+            result = self.whisper_model.transcribe("temp_audio.wav")
+            return result["text"]
+        except Exception as e:
+            return f"Error in audio transcription: {str(e)}"
 
     def text_to_audio(self, text):
         """Convert text to audio using gTTS."""
@@ -130,12 +136,15 @@ if st.button("Get Question"):
 
 # Input for user's answer (audio format)
 st.subheader("Your Answer")
-audio_input = st.audio("Upload Your Audio Answer", type="file")
+audio_input = st.file_uploader("Upload Your Audio Answer", type=["wav", "mp3", "ogg", "flac"])
 
 if audio_input:
+    # Transcribe the audio to text
     user_answer = assistant.transcribe_audio(audio_input)
     st.text_area("Your Answer (Text)", value=user_answer, height=150)
 
     if st.button("Get Feedback"):
+        # Generate feedback using Groq
         feedback = assistant.generate_feedback(question_text, user_answer)
         st.text_area("Feedback", value=feedback, height=150)
+
