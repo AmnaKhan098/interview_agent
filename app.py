@@ -1,16 +1,4 @@
-import streamlit as st
-from transformers import pipeline
-import torch
-import pandas as pd
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
-from gtts import gTTS
 import whisper
-from pydub import AudioSegment
-from io import BytesIO
-from groq import Groq
-
 
 class InterviewAssistant:
     def __init__(self, questions_path, groq_api_key):
@@ -37,7 +25,11 @@ class InterviewAssistant:
         )
 
         # Whisper model for speech-to-text
-        self.whisper_model = whisper.load_model("base")
+        try:
+            self.whisper_model = whisper.load_model("base")
+        except Exception as e:
+            print(f"Error loading Whisper model: {str(e)}")
+            self.whisper_model = None  # Handle failure gracefully
 
         # Groq client for LLM feedback
         self.groq_client = Groq(api_key=groq_api_key)
@@ -84,6 +76,9 @@ class InterviewAssistant:
 
     def transcribe_audio(self, audio_data):
         """Convert audio data into text using Whisper."""
+        if self.whisper_model is None:
+            return "Whisper model is not loaded correctly."
+
         try:
             # Load the audio from the uploaded file and convert to wav format if necessary
             audio = AudioSegment.from_file(audio_data, format="wav")  # Will work for .mp3, .ogg, etc. too
@@ -104,47 +99,4 @@ class InterviewAssistant:
         audio_bytes.seek(0)
         return audio_bytes
 
-
-# Instantiate the assistant
-assistant = InterviewAssistant(
-    questions_path='non_technical_interview_questions (1).csv',
-    groq_api_key="GROQ_API_KEY"
-)
-
-
-# Streamlit Interface
-st.title("AI Interview Assistant")
-
-# Inputs for job title and description
-job_title = st.text_input("Job Title")
-job_description = st.text_area("Job Description")
-
-if st.button("Get Question"):
-    # Get the similar question based on the job description
-    questions = assistant.get_similar_questions(job_title, job_description)
-    question_text = questions[0]['Question']
-
-    # Display the question text
-    st.text_area("Interview Question (Text)", value=question_text, height=150)
-
-    # Convert the question to audio
-    question_audio = assistant.text_to_audio(question_text)
-
-    # Display the question in audio format
-    st.audio(question_audio, format='audio/wav')
-
-
-# Input for user's answer (audio format)
-st.subheader("Your Answer")
-audio_input = st.file_uploader("Upload Your Audio Answer", type=["wav", "mp3", "ogg", "flac"])
-
-if audio_input:
-    # Transcribe the audio to text
-    user_answer = assistant.transcribe_audio(audio_input)
-    st.text_area("Your Answer (Text)", value=user_answer, height=150)
-
-    if st.button("Get Feedback"):
-        # Generate feedback using Groq
-        feedback = assistant.generate_feedback(question_text, user_answer)
-        st.text_area("Feedback", value=feedback, height=150)
 
