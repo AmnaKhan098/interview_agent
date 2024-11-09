@@ -101,8 +101,8 @@ class InterviewAssistant:
 
 # Instantiate the assistant
 assistant = InterviewAssistant(
-    questions_path='/content/drive/MyDrive/interview_agent_test_cases_no_feedback.csv',
-    groq_api_key="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"
+    questions_path='non_technical_interview_questions (1).csv',
+    groq_api_key="GROQ_API_KEY"
 )
 
 
