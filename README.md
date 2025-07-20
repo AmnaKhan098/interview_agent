@@ -1,9 +1,10 @@
 # 🎯 Interview Agent – AI-Powered Interview Preparation Tool
 **Interview Agent** is an AI-driven web application built with **Next.js** that helps users prepare for job interviews through intelligent simulations. The tool generates domain-specific questions, simulates interview interactions, and is designed to provide actionable feedback to improve confidence and performance.
 ## 🚀 Getting Started
-This is a [Next.js](https://nextjs.org/) project bootstrapped with `create-next-app`.
-### 🔧 Development Setup
-To run the development server:
+
+
+First, run the development server:
+
 ```bash
 npm run dev
 # or
@@ -12,55 +13,25 @@ yarn dev
 pnpm dev
 # or
 bun dev
-Then open http://localhost:3000 with your browser to see the result.
-You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
+```
 
-🔤 Fonts & Optimization
-This project uses next/font to automatically optimize and load Geist, a clean and modern font family by Vercel.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-📚 Learn More About Next.js
-📘 Next.js Documentation – Explore features and APIs
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-🧑‍🏫 Learn Next.js – An interactive tutorial
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-💻 Next.js GitHub Repo – Your feedback and contributions are welcome!
+## Learn More
 
-☁️ Deploy on Vercel
-The easiest way to deploy your Next.js app is with Vercel – created by the developers of Next.js.
-Check out the Next.js deployment documentation for more details.
+To learn more about Next.js, take a look at the following resources:
 
-🧠 Key Features
-✅ AI-generated interview questions based on selected domains
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-🎤 Support for speech and text-based responses
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-📊 Real-time feedback and performance tips
+## Deploy on Vercel
 
-🧾 Personalized improvement report
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-🧠 Smart response evaluation using NLP (planned)
-
-🛠 Tech Stack
-Frontend Framework: Next.js (App Router)
-
-Language: TypeScript
-
-Styling: Tailwind CSS / CSS Modules
-
-Font: Geist (via next/font)
-
-AI & NLP: OpenAI API / Custom ML Models (Planned)
-
-Deployment: Vercel
-
-📸 Screenshots
-(Include screenshots or UI mockups here when available)
-
-👥 Contributors
-Amna Khan – Full-stack Development / AI Integration
-
-(Add more collaborators here if any)
-
-📜 License
-This project is licensed under the MIT License.
-Feel free to use, modify, and distribute with proper credit.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
